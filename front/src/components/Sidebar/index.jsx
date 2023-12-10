@@ -4,7 +4,6 @@ import { FaHome } from "react-icons/fa";
 import { IoExitSharp } from "react-icons/io5";
 import { MdManageAccounts } from "react-icons/md";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import './styles.css'
 
 const styles = {
   sidebar: {
