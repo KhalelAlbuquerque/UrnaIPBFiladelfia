@@ -1,3 +1,5 @@
+import swalAlert from "../../helpers/swalAlert"
+
 export default function Home(){
     return(
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%', minHeight: '100%'}}>
