@@ -34,7 +34,9 @@ export default class PresbyterController {
             for(let itemId of idList){
              const foundPresbyter = await Presbyter.findOne({_id:itemId}).exec()
      
-             if(!foundPresbyter) return
+             if(!foundPresbyter){
+                console.log(`Presbyter not found: ${itemId}`)
+             }
      
              foundPresbyter.votes += 1
      

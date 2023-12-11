@@ -3,8 +3,10 @@ import MinisterController from '../../controllers/MinisterController.js'
 
 const router = Router()
 
-router.get('/', MinisterController.getAll)
+router.get('/', MinisterController.getMinister)
 router.post('/', MinisterController.create)
+router.post('/computePositive', MinisterController.computePositive)
+router.post('/computeNegative', MinisterController.computeNegative)
 router.delete('/:id', MinisterController.deleteOne)
 
 export default router

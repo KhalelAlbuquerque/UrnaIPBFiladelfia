@@ -34,7 +34,9 @@ export default class DeaconController {
            for(let itemId of idList){
             const foundDeacon = await Deacon.findOne({_id:itemId}).exec()
     
-            if(!foundDeacon) return
+            if(!foundDeacon){
+                console.log(`Deacon not found: ${itemId}`)
+             }
     
             foundDeacon.votes += 1
     

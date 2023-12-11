@@ -11,10 +11,14 @@ const MinisterSchema = new Schema({
         type: String,
         // required: true
     },
-    votes: {
+    positives:{
         type: Number,
         default: 0
     },
+    negatives:{
+        type: Number,
+        default: 0
+    }
 })
 
 export default mongoose.model("Minister", MinisterSchema)
