@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Notification from '../Notifier/Notification';
 
 const styles = {
     votationContainer: {
@@ -46,15 +47,26 @@ export default function GeneralVotation({ label, maxItems, items }) {
         } else {
             if (selectedItems.length < maxItems) {
                 setSelectedItems([...selectedItems, index]);
+            }else{
+                Notification('error', `Máximo de ${maxItems} seleções`)
             }
         }
     };
+
+    const handleSubmit = (event)=>{
+        event.preventDefault()
+        if(selectedItems.length==0){
+            return Notification('error', "Escolha ao menos um candidato!")
+        }
+        console.log(selectedItems)
+        setSelectedItems([])
+    }
 
     return (
         <div style={styles.votationContainer}>
             <h1>Votação para {label}</h1>
             <h2>Selecione até {maxItems} opções</h2>
-            <form style={styles.form} action="#">
+            <form style={styles.form} onSubmit={()=>handleSubmit(event)}>
                 {items.map((element, index) => (
                     <label
                         key={index + 1}
@@ -73,6 +85,8 @@ export default function GeneralVotation({ label, maxItems, items }) {
                         <div style={styles.nonSelectableText}>{element.name}</div>
                     </label>
                 ))}
+            
+                <button style={{margin: 'auto'}} type='submit'>Confirmar</button>
             </form>
         </div>
     )

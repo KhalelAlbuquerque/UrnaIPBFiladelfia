@@ -1,4 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import ToastContainer from './components/Notifier/ToastContainer'
 import Home from './pages/Home/'
 import MinisterVotation from './pages/MinisterVotation/'
 import PresbyterVotation from './pages/PresbyterVotation/'
@@ -16,6 +17,7 @@ export default function Navigator(){
     return(
         <BrowserRouter>
             <div style={{display: 'flex'}}>
+                <ToastContainer/>
                 <Routes>
                     <Route path='/' element={<PrivateRoute element={Home} />} />
                     <Route path='/ministerVotation' element={<PrivateRoute element={MinisterVotation}/>}></Route>
