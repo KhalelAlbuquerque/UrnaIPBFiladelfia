@@ -4,8 +4,7 @@ import MinisterController from '../../controllers/MinisterController.js'
 const router = Router()
 
 router.get('/', MinisterController.getAll)
-router.get('/', function(req, res){})
-router.get('/', function(req, res){})
-router.get('/', function(req, res){})
+router.post('/', MinisterController.create)
+router.get('/:id', MinisterController.deleteOne)
 
 export default router
