@@ -9,7 +9,7 @@ export default class MinisterController {
                 return res.status(404).json({message: 'No minister found'})
             }
 
-            return res.status(200).json(ministers[0])
+            return res.status(200).json(ministers)
         }catch(err){
             return res.status(500).json({message: err.message});
         }
