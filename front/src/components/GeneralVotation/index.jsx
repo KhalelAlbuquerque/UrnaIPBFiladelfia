@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Notification from '../Notifier/Notification';
+import { IoMdCloseCircle } from "react-icons/io";
 
 const styles = {
     votationContainer: {
@@ -39,11 +40,41 @@ const styles = {
     },
     nonSelectableText: {
         userSelect: 'none',
+    },
+    closeButton:{
+        position: 'absolute',
+        top: 20,
+        right: 20,
+        height: 100,
+        width: 100,
+        cursor: 'pointer',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '50%',
+        fontSize: '4em',
     }
 }
 
-export default function GeneralVotation({ label, maxItems, items }) {
+export default function GeneralVotation({ label, maxItems, items, setCloseModel }) {
     const [selectedItems, setSelectedItems] = useState([]);
+    const [permittedToClose, setPermittedToClose] = useState(false);
+  
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+          if (event.key === 'CapsLock') {
+            setPermittedToClose(true);
+          }
+        };
+    
+        const handleKeyUp = (event) => {
+          if (event.key === 'CapsLock') {
+            setPermittedToClose(false);
+          }
+        };
+    
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+      }, []);
 
     const handleCheckboxChange = (index) => {
         if (selectedItems.includes(index)) {
@@ -69,6 +100,14 @@ export default function GeneralVotation({ label, maxItems, items }) {
 
     return (
         <div style={styles.votationContainer}>
+            {permittedToClose && (
+                <div 
+                    onClick={()=>setCloseModel(false)} 
+                    style={{...styles.closeButton, ...(permittedToClose ? { display: 'flex' } : { display: 'none' })}}
+                >
+                        <IoMdCloseCircle />
+                </div>
+            )}
             <h1>Votação para {label}</h1>
             <h2>Selecione até {maxItems} opções</h2>
             <form style={styles.form} onSubmit={()=>handleSubmit(event)}>

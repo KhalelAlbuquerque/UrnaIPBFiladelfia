@@ -19,13 +19,9 @@ export default function MinisterVotation(){
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [minister, setMinister] = useState(null)
-
-    async function getMinister(){
-      await api.get("minister").then((e)=>setMinister(e.data))
-    }
-
+    
     useEffect(()=>{
-      getMinister()
+      api.get("minister").then((e)=>setMinister(e.data))
     }, [])
     
 

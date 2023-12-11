@@ -68,19 +68,11 @@ export default function MinisterVotesContainer({ minister, setCloseModel }) {
         const handleKeyUp = (event) => {
           if (event.key === 'CapsLock') {
             setPermittedToClose(false);
-    
-            // Lógica para fechar automaticamente ao soltar a tecla "Alt"
-            // Adicione o código para fechar aqui (por exemplo, chamar uma função para fechar)
           }
         };
     
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
-    
-        return () => {
-          window.removeEventListener('keydown', handleKeyDown);
-          window.removeEventListener('keyup', handleKeyUp);
-        };
       }, []);
   
     return (

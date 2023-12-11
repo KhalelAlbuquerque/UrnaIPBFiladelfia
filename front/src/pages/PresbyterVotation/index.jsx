@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import FullScreenModel from "../../components/FullScreenModel/";
 import GeneralVotation from "../../components/GeneralVotation";
 import { FaExpandArrowsAlt } from "react-icons/fa";
+import api from "../../helpers/api";
 
 const styles = {
   expandButton:{
@@ -16,27 +17,17 @@ const styles = {
 
 export default function PresbyterVotation(){
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [presbyters, setPresbyters] = useState(false)
 
-  const lista = [
-      {name: "Candidato 1", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 2", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-      {name: "Candidato 3", image: 'https://www.politize.com.br/wp-content/uploads/2022/03/paulo-candidato-eleicoes-politize-e1470154748570.png'},
-  ]
+  useEffect(()=>{
+    api.get('presbyter').then((response)=>setPresbyters(response.data))
+  }, [])
 
   return (
       <>
-        {isModalOpen ? (
+        {isModalOpen && presbyters ? (
           <FullScreenModel bgColor="white">
-              <GeneralVotation items={lista} label={"Pastor"} maxItems={5}/>
+              <GeneralVotation items={presbyters} label={"Pastor"} maxItems={5} setCloseModel={setIsModalOpen}/>
           </FullScreenModel>
         ) : (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%', height: '100%' }}>
