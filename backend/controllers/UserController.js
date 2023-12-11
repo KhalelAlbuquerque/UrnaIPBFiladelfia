@@ -25,7 +25,7 @@ export default class UserController{
 
             await User.create(newUser)
 
-            return res.status(201).json({newUser: newUser})
+            return res.status(201).json({message: "User created successfully", newUser:newUser})
         }catch(err){
             return res.status(500).json({message: err.message})
         }

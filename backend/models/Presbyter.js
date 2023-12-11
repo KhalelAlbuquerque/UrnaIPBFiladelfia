@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema
 
-const MinisterSchema = new Schema({
+const PresbyterSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -17,4 +17,4 @@ const MinisterSchema = new Schema({
     },
 })
 
-export default mongoose.model("Minister", MinisterSchema)
+export default mongoose.model("Presbyter", PresbyterSchema)
