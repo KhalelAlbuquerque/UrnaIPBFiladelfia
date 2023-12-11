@@ -20,6 +20,10 @@ const styles = {
         cursor: 'pointer',
         position: 'relative',
     },
+    candidateImage:{
+        width: '80%',
+        height: '50%'
+    },
     checkbox: {
         position: 'absolute',
         top: 0,
@@ -34,7 +38,7 @@ const styles = {
         justifyContent: 'space-around',
     },
     nonSelectableText: {
-        userSelect: 'none',  // Impede a seleção do texto
+        userSelect: 'none',
     }
 }
 
@@ -56,8 +60,9 @@ export default function GeneralVotation({ label, maxItems, items }) {
     const handleSubmit = (event)=>{
         event.preventDefault()
         if(selectedItems.length==0){
-            return Notification('error', "Escolha ao menos um candidato!")
+            return Notification('warning', "Escolha ao menos um candidato!")
         }
+        Notification('success', `Máximo de ${maxItems} seleções`)
         console.log(selectedItems)
         setSelectedItems([])
     }
@@ -81,7 +86,7 @@ export default function GeneralVotation({ label, maxItems, items }) {
                             checked={selectedItems.includes(index)}
                             onChange={() => handleCheckboxChange(index)}
                         />
-                        <img src={element.image} height={40} width={40} alt={element.name} />
+                        <img src={element.image} style={styles.candidateImage} height={80} width={80} alt={element.name} />
                         <div style={styles.nonSelectableText}>{element.name}</div>
                     </label>
                 ))}

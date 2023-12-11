@@ -55,15 +55,15 @@ export default function Sidebar({children}) {
             </div>
             {isVotationsExpanded && (
                 <div style={styles.collapse}>
-                <Link className="link" style={styles.link} to={'/ministerVotation'}>
-                    Votação Pastor
-                </Link>
-                <Link className="link" style={styles.link} to={'/presbyterVotation'}>
-                    Votação Presbíteros
-                </Link>
-                <Link className="link" style={styles.link} to={'/deaconVotation'}>
-                    Votação Diáconos
-                </Link>
+                  <Link className="link" style={styles.link} to={'/ministerVotation'}>
+                      Votação Pastor
+                  </Link>
+                  <Link className="link" style={styles.link} to={'/presbyterVotation'}>
+                      Votação Presbíteros
+                  </Link>
+                  <Link className="link" style={styles.link} to={'/deaconVotation'}>
+                      Votação Diáconos
+                  </Link>
                 </div>
             )}
             <Link className="link" style={styles.link} to={'/'}>
