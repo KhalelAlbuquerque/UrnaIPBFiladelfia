@@ -1,10 +1,8 @@
-import dotenv from 'dotenv'
-dotenv.config({path: '../.env'})
 import axios from 'axios'
 import { getToken } from './auth'
 
 const api = axios.create({
-    baseURL: process.env.BASE_URL,
+    baseURL: 'http://localhost:3001/'
 })
 
 api.interceptors.request.use(async config=>{
