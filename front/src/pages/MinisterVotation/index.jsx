@@ -21,7 +21,7 @@ export default function MinisterVotation(){
     const [minister, setMinister] = useState(null)
     
     useEffect(()=>{
-      api.get("minister").then((e)=>setMinister(e.data))
+      api.get("minister").then((e)=>setMinister((e.data)[0]))
     }, [])
     
 

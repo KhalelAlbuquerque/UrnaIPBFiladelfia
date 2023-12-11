@@ -15,7 +15,10 @@ const styles = {
     gap: '20px',
     paddingTop: '100px',
     paddingLeft: '30px',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    position: 'sticky',
+    top: 0,
+    left: 0
   },
   link: {
     color: 'white',
@@ -66,7 +69,7 @@ export default function Sidebar({children}) {
                   </Link>
                 </div>
             )}
-            <Link className="link" style={styles.link} to={'/'}>
+            <Link className="link" style={styles.link} to={'/manageCandidates'}>
                 <MdManageAccounts style={{ marginRight: 10 }} />
                 Gerenciar Candidatos
             </Link>
@@ -75,7 +78,7 @@ export default function Sidebar({children}) {
                 Sair da conta
             </Link>
         </div>
-        <div style={{ width: '100%'}}>
+        <div style={{ width: '100%', overflow: 'scroll'}}>
             {children}
         </div>
 

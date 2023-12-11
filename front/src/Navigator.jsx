@@ -4,6 +4,7 @@ import Home from './pages/Home/'
 import MinisterVotation from './pages/MinisterVotation/'
 import PresbyterVotation from './pages/PresbyterVotation/'
 import DeaconVotation from './pages/DeaconVotation/'
+import ManageCandidates from './pages/ManageCandidates'
 import Sidebar from './components/Sidebar/'
 
 const PrivateRoute = ({ element: Element, ...rest }) => (
@@ -23,6 +24,7 @@ export default function Navigator(){
                     <Route path='/ministerVotation' element={<PrivateRoute element={MinisterVotation}/>}></Route>
                     <Route path='/presbyterVotation' element={<PrivateRoute element={PresbyterVotation}/>}></Route>
                     <Route path='/deaconVotation' element={<PrivateRoute element={DeaconVotation}/>}></Route>
+                    <Route path='/manageCandidates' element={<PrivateRoute element={ManageCandidates}/>}></Route>
                 </Routes>
             </div>
         </BrowserRouter>
