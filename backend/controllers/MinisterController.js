@@ -74,15 +74,15 @@ export default class MinisterController {
     }
     
 
-    static async deleteOne(req,res){
+    static async deleteMinister(req,res){
         try{
-            const {id} = req.params
-
-            const foundMinister = await Minister.findOne({_id:id}).exec()
-
-            if(!foundMinister) return res.status(404).json({message: "Minister not found"})
-
-            await Minister.deleteOne(foundMinister).exec()
+            const foundMinister = await Minister.find().exec()
+    
+            if(foundMinister.length == 0){
+                return res.status(404).json({message: "Minister not found"})
+            }
+    
+            await Minister.deleteOne(foundMinister[0]).exec()
 
             res.status(200).json({message: "Minister deleted"})
         }catch(err){

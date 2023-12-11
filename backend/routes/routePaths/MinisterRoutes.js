@@ -7,6 +7,6 @@ router.get('/', MinisterController.getMinister)
 router.post('/', MinisterController.create)
 router.post('/computePositive', MinisterController.computePositive)
 router.post('/computeNegative', MinisterController.computeNegative)
-router.delete('/:id', MinisterController.deleteOne)
+router.delete('/', MinisterController.deleteMinister)
 
 export default router
