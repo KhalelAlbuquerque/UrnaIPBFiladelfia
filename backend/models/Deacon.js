@@ -9,11 +9,11 @@ const DeaconSchema = new Schema({
     },
     image: {
         type: String,
-        required: true
+        // required: true
     },
     votes: {
         type: Number,
-        required: true
+        default: 0
     },
 })
 

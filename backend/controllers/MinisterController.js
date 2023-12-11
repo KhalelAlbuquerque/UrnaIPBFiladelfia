@@ -13,12 +13,10 @@ export default class MinisterController {
 
     static async create(req,res){
         try{
-            const {name, votes, image} = req.body
+            const {name} = req.body
 
             const newMinister = {
                 name,
-                image,
-                votes
             }
 
             await Minister.create(newMinister)
@@ -28,6 +26,8 @@ export default class MinisterController {
             res.status(500).json({message: err.message});
         }
     }
+
+    
 
     static async deleteOne(req,res){
         try{

@@ -5,6 +5,6 @@ const router = Router()
 
 router.get('/', MinisterController.getAll)
 router.post('/', MinisterController.create)
-router.get('/:id', MinisterController.deleteOne)
+router.delete('/:id', MinisterController.deleteOne)
 
 export default router

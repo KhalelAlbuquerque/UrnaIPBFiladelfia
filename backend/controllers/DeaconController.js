@@ -13,12 +13,10 @@ export default class DeaconController {
 
     static async create(req,res){
         try{
-            const {name, votes, image} = req.body
+            const {name} = req.body
 
             const newDeacon = {
                 name,
-                image,
-                votes
             }
 
             await Deacon.create(newDeacon)
@@ -26,6 +24,26 @@ export default class DeaconController {
             return res.status(201).json({message: 'Deacon created successfully', newDeacon: newDeacon})
         }catch(err){
             res.status(500).json({message: err.message});
+        }
+    }
+
+    static async computeVotes(req,res){
+        try{
+            const {idList} = req.body
+
+           for(let itemId of idList){
+            const foundDeacon = await Deacon.findOne({_id:itemId}).exec()
+    
+            if(!foundDeacon) return
+    
+            foundDeacon.votes += 1
+    
+            await foundDeacon.save();
+           }
+
+            return res.status(200).json({ message: "Votes computed successfully" });
+        }catch(err){
+            return res.status(500).json({message: err.message});
         }
     }
 

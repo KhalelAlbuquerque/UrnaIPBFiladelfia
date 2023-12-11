@@ -5,6 +5,7 @@ const router = Router()
 
 router.get('/', PresbyterController.getAll)
 router.post('/', PresbyterController.create)
-router.get('/:id', PresbyterController.deleteOne)
+router.delete('/:id', PresbyterController.deleteOne)
+router.post('/compute/:id', PresbyterController.computeVotes)
 
 export default router
