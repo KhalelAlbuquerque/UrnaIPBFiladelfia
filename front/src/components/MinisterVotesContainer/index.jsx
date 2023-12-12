@@ -4,6 +4,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import swalAlert from '../../helpers/swalAlert'
 import api from '../../helpers/api';
 import handleMinisterVote from '../../helpers/handleMinisterVote';
+import handlePresskey from '../../helpers/handlePresskey';
 
 const styles = {
     votationContainer: {
@@ -41,9 +42,6 @@ const styles = {
         flexWrap: 'wrap',
         justifyContent: 'space-around',
     },
-    nonSelectableText: {
-        userSelect: 'none',
-    },
     closeButton:{
         position: 'absolute',
         top: 20,
@@ -63,25 +61,12 @@ export default function MinisterVotesContainer({ minister, setCloseModel }) {
 
     async function handleVote(event){
       event.preventDefault();
-      handleMinisterVote({option: event.target.value})
+      handleMinisterVote(event.target.value)
     }
   
     useEffect(() => {
-        const handleKeyDown = (event) => {
-          if (event.key === 'CapsLock') {
-            setPermittedToClose(true);
-          }
-        };
-    
-        const handleKeyUp = (event) => {
-          if (event.key === 'CapsLock') {
-            setPermittedToClose(false);
-          }
-        };
-    
-        window.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('keyup', handleKeyUp);
-      }, []);
+      handlePresskey(setPermittedToClose)
+    }, []);
   
     return (
       <div style={styles.votationContainer}>
@@ -89,7 +74,7 @@ export default function MinisterVotesContainer({ minister, setCloseModel }) {
           <div 
             onClick={()=>setCloseModel(false)} 
             style={{...styles.closeButton, ...(permittedToClose ? { display: 'flex' } : { display: 'none' })}}
-        >
+          >
                 <IoMdCloseCircle />
           </div>
         )}
@@ -97,7 +82,7 @@ export default function MinisterVotesContainer({ minister, setCloseModel }) {
         <h2>Selecione sim ou não</h2>
   
         {/* <img src={minister.image} style={styles.candidateImage} height={80} width={80} alt={minister.name} /> */}
-        <div style={styles.nonSelectableText}>{minister.name}</div>
+        <div style={{userSelect: 'none'}}>{minister.name}</div>
   
         <button
           value={'Positive'}

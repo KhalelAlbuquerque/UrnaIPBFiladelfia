@@ -27,7 +27,7 @@ export default function PresbyterVotation(){
       <>
         {isModalOpen && presbyters ? (
           <FullScreenModel bgColor="white">
-              <GeneralVotation items={presbyters} label={"Pastor"} maxItems={5} setCloseModel={setIsModalOpen}/>
+              <GeneralVotation items={presbyters} label={"Presbíteros"} maxItems={5} setCloseModel={setIsModalOpen}/>
           </FullScreenModel>
         ) : (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%', height: '100%' }}>

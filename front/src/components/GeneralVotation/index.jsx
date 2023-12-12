@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Notification from '../Notifier/Notification';
 import { IoMdCloseCircle } from "react-icons/io";
+import handlePressKey from '../../helpers/handlePresskey.js'
+import handleMultipleVotes from '../../helpers/handleMultipleVotes.js'
 
 const styles = {
     votationContainer: {
@@ -60,28 +62,15 @@ export default function GeneralVotation({ label, maxItems, items, setCloseModel 
     const [permittedToClose, setPermittedToClose] = useState(false);
   
     useEffect(() => {
-        const handleKeyDown = (event) => {
-          if (event.key === 'CapsLock') {
-            setPermittedToClose(true);
-          }
-        };
-    
-        const handleKeyUp = (event) => {
-          if (event.key === 'CapsLock') {
-            setPermittedToClose(false);
-          }
-        };
-    
-        window.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('keyup', handleKeyUp);
+        handlePressKey(setPermittedToClose)
       }, []);
 
-    const handleCheckboxChange = (index) => {
-        if (selectedItems.includes(index)) {
-            setSelectedItems(selectedItems.filter(item => item !== index));
+    const handleCheckboxChange = (id) => {
+        if (selectedItems.includes(id)) {
+            setSelectedItems(selectedItems.filter(item => item !== id));
         } else {
             if (selectedItems.length < maxItems) {
-                setSelectedItems([...selectedItems, index]);
+                setSelectedItems([...selectedItems, id]);
             }else{
                 Notification('error', `Máximo de ${maxItems} seleções`)
             }
@@ -93,9 +82,8 @@ export default function GeneralVotation({ label, maxItems, items, setCloseModel 
         if(selectedItems.length==0){
             return Notification('warning', "Escolha ao menos um candidato!")
         }
-        Notification('success', `Máximo de ${maxItems} seleções`)
-        console.log(selectedItems)
-        setSelectedItems([])
+
+        handleMultipleVotes(label=='Diáconos' ? 'deacon' : 'presbyter', selectedItems, setSelectedItems)
     }
 
     return (
@@ -111,19 +99,19 @@ export default function GeneralVotation({ label, maxItems, items, setCloseModel 
             <h1>Votação para {label}</h1>
             <h2>Selecione até {maxItems} opções</h2>
             <form style={styles.form} onSubmit={()=>handleSubmit(event)}>
-                {items.map((element, index) => (
+                {items.map((element) => (
                     <label
-                        key={index + 1}
+                        key={element._id}
                         style={{
                             ...styles.candidateCard,
-                            backgroundColor: selectedItems.includes(index) ? 'darkgray' : 'white',
+                            backgroundColor: selectedItems.includes(element._id) ? 'darkgray' : 'white',
                         }}
                     >
                         <input
                             type="checkbox"
                             style={styles.checkbox}
-                            checked={selectedItems.includes(index)}
-                            onChange={() => handleCheckboxChange(index)}
+                            checked={selectedItems.includes(element._id)}
+                            onChange={() => handleCheckboxChange(element._id)}
                         />
                         <img src={element.image} style={styles.candidateImage} height={80} width={80} alt={element.name} />
                         <div style={styles.nonSelectableText}>{element.name}</div>

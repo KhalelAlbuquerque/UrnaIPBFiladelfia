@@ -2,9 +2,10 @@ import swalAlert from "./swalAlert"
 import getPassword from "./getPassword"
 import api from "./api"
 
-export default function handleMinisterVote(option){
+export default function handleMinisterVote(option, itemsIdList, setItems){
+    console.log(itemsIdList)
     swalAlert.fire({
-        title: `Deseja confirmar o voto "${option === 'Positive' ? 'SIM' : "NÃO"}"?`,
+        title: `Deseja confirmar os seus votos?`,
         text: "Essa ação não poderá ser desfeita",
         icon: 'warning',
         showConfirmButton : true,
@@ -16,7 +17,8 @@ export default function handleMinisterVote(option){
         reverseButtons: true
       }).then((result)=>{
         if(result.isConfirmed){
-          api.post(`minister/compute${option}`).then(()=>{
+          api.post(`${option}/compute`, {idList: itemsIdList}).then(()=>{
+            setItems([])
             swalAlert.fire({
               title: 'Voto computado!',
               text: "Chame um instrutor",

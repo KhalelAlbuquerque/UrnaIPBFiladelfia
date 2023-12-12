@@ -27,7 +27,7 @@ export default function DeaconVotation() {
         <>
           {isModalOpen && deacons ? (
             <FullScreenModel bgColor="white">
-                <GeneralVotation items={deacons} label={"Pastor"} maxItems={5} setCloseModel={setIsModalOpen}/>
+                <GeneralVotation items={deacons} label={"Diáconos"} maxItems={5} setCloseModel={setIsModalOpen}/>
             </FullScreenModel>
           ) : (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%', height: '100%' }}>
