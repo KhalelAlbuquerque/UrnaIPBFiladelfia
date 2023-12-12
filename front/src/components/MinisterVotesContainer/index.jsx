@@ -3,6 +3,7 @@ import Notification from '../Notifier/Notification';
 import { IoMdCloseCircle } from "react-icons/io";
 import swalAlert from '../../helpers/swalAlert'
 import api from '../../helpers/api';
+import handleMinisterVote from '../../helpers/handleMinisterVote';
 
 const styles = {
     votationContainer: {
@@ -60,72 +61,9 @@ const styles = {
 export default function MinisterVotesContainer({ minister, setCloseModel }) {
     const [permittedToClose, setPermittedToClose] = useState(false);
 
-    const password = 123
-
-    function getPassword(){
-      swalAlert.fire({
-        title: 'Coloque a senha de instrutor para continuar',
-        icon: 'info',
-        input: 'text',
-        confirmButtonText: 'Confirmar',
-        confirmButtonColor: 'green',
-        allowOutsideClick: false,
-        allowEscapeKey: false
-      }).then(result=>{
-        if(result.value == password){
-          swalAlert.fire({
-            title: "Senha aprovada",
-            icon: 'success',
-            text: 'Carregando...',
-            timer: 1000,
-            showConfirmButton: false,
-            timerProgressBar: true,
-          })
-        }else{
-          swalAlert.fire({
-            title: 'Senha errada, digite novamente',
-            icon: 'error',
-            confirmButtonText: 'Ok',
-            confirmButtonColor: 'green',
-            allowOutsideClick: false,
-            allowEscapeKey: false
-          }).then((result)=>{
-            if(result.isConfirmed) getPassword()
-          })
-        }
-      })
-    }
-
-
-    async function handlePositive(event){
+    async function handleVote(event){
       event.preventDefault();
-      swalAlert.fire({
-        title: 'Deseja confirmar o voto "SIM"?',
-        text: "Essa ação não poderá ser desfeita",
-        icon: 'warning',
-        showConfirmButton : true,
-        showCancelButton : true,
-        confirmButtonText: "Confirmo",
-        cancelButtonText: "Não confirmo",
-        confirmButtonColor: 'green',
-        cancelButtonColor: 'red',
-        reverseButtons: true
-      }).then((result)=>{
-        if(result.isConfirmed){
-          api.post('minister/computePositive').then(()=>{
-            swalAlert.fire({
-              title: 'Voto computado!',
-              text: "Chame um instrutor",
-              icon: 'success',
-              confirmButtonColor: 'green',
-              allowOutsideClick: false,
-              allowEscapeKey: false
-            }).then(()=>{
-              getPassword()
-            })
-          })
-        }
-      })
+      handleMinisterVote({option: event.target.value})
     }
   
     useEffect(() => {
@@ -162,11 +100,17 @@ export default function MinisterVotesContainer({ minister, setCloseModel }) {
         <div style={styles.nonSelectableText}>{minister.name}</div>
   
         <button
-          onClick={handlePositive}
+          value={'Positive'}
+          onClick={()=>handleVote(event)}
         >
           Sim
         </button>
-        <button onClick={(e) => { e.preventDefault(); console.log('Não'); }}>Não</button>
+        <button
+          value={'Negative'}
+          onClick={()=>handleVote(event)}
+        >
+          Não
+        </button>
       </div>
     );
   }
